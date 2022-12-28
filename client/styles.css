@@ -1,7 +1,21 @@
-/* * {
+* {
     margin: 0;
     padding: 0;
-} */
+}
+
+html {
+    font-size: 17px;
+    font-family: "Roboto", monospace;
+}
+
+:root {
+    --delete-color: #ff0000;
+    --edit-color: #00ff00;
+    --table-color: #d0e4e6;
+    --row-hover-color: #f5f5f5;
+    --main-background-color: #919191;
+    --btn-color: #dde4e6cc;
+}
 
 main {
     margin: 50px auto;
@@ -10,16 +24,66 @@ main {
 
 table {
     margin: 50px auto;
+    padding: 25px;
+    border-radius: 10px;
+    /* border: 1px solid black; */
+    background-color: var(--table-color);
+    border-spacing: 0;
 }
 
 table,
 th,
 td {
-    border-collapse: collapse;
-    border: 1px solid black;
+    /* border-collapse: collapse; */
+    /* border: 1px solid black; */
 }
 
 th,
 td {
     padding: 5px 10px;
+    /* background-color: aquamarine; */
+}
+
+th {
+    border-bottom: 2px solid black;
+    padding-bottom: 10px;
+}
+td {
+    border-bottom: 1px solid black;
+}
+
+/* tr:hover td:first-child {
+    border-radius: 5px 0 0 5px;
+}
+
+tr:hover td:last-child {
+    border-radius: 0 5px 5px 0;
+} */
+
+tr:hover {
+    background-color: var(--row-hover-color);
+    /* opacity: 10%; */
+    backdrop-filter: blur(20px);
+    /* border-radius: 5px; */
+}
+tr:hover th {
+    background-color: var(--table-color);
+}
+
+button {
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: 1px solid gray;
+    background-color: var(--btn-color);
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.delete-row-btn:hover {
+    background-color: var(--delete-color);
+    color: #f5f5f5;
+}
+
+.edit-row-btn:hover {
+    background-color: var(--edit-color);
 }
