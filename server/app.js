@@ -58,6 +58,19 @@ app.delete("/delete/:id", (req, res) => {
         .catch((err) => console.log(err));
 });
 
+// search
+
+app.get("/search/:name", (req, res) => {
+    const { name } = req.params;
+    const db = dbService.getDbServiceInstance();
+
+    const result = db.searchByName(name);
+
+    result
+        .then((data) => res.json({ data: data }))
+        .catch((err) => console.log(err));
+});
+
 app.listen(process.env.PORT, () => {
     console.log("Server is running");
 });

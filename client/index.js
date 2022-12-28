@@ -18,6 +18,15 @@ document
     });
 
 const updateBtn = document.querySelector("#update-row-btn");
+const searchBtn = document.querySelector("#search-btn");
+
+searchBtn.onclick = function () {
+    const searchValue = document.querySelector("#search-input").value;
+
+    fetch("http://localhost:5000/search/" + searchValue)
+        .then((response) => response.json())
+        .then((data) => loadHTMLTable(data["data"]));
+};
 
 updateBtn.onclick = function () {
     const updateNameInput = document.querySelector("#update-name-input");
@@ -103,12 +112,11 @@ function loadHTMLTable(data) {
     if (data.length === 0) {
         table.innerHTML =
             "<tr><td class='no-data' colspan='8'>No Data</td></tr>";
-    }
+    } else {
+        let tableHtml = "";
 
-    let tableHtml = "";
-
-    data.forEach(function ({ id, name }) {
-        tableHtml += `
+        data.forEach(function ({ id, name }) {
+            tableHtml += `
             <tr>
                 <td>${id}</td>
                 <td>${name}</td>
@@ -120,9 +128,10 @@ function loadHTMLTable(data) {
                 <td><button class="edit-row-btn" data-id="${id}">Edit</button></td>
             </tr>
         `;
-    });
+        });
 
-    table.innerHTML = tableHtml;
+        table.innerHTML = tableHtml;
+    }
 }
 
 function handleEditRow(id) {
