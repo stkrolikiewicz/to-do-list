@@ -19,7 +19,7 @@ app.post("/insert", (req, res) => {
     const result = db.insertNewName(name);
 
     result
-        .then((data) => response.json({ data: data }))
+        .then((data) => res.json({ data: data }))
         .catch((err) => console.log(err));
 });
 

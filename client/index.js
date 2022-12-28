@@ -30,17 +30,19 @@ function insertRowIntoTable(data) {
 
     for (const key in data) {
         if (data.hasOwnProperty(key)) {
-            if (key === "dateAdded") {
-                data[key] = new Date(data[key]).toLocaleString();
-            }
             tableHtml += `<td>${data[key]}</td>`;
         }
     }
 
     tableHtml += `
-        <td><button class="delete-row-btn" data-id="${data.id}">Delete</button></td>
-        <td><button class="edit-row-btn" data-id="${data.id}">Edit</button></td>
+            <td>description</td>
+            <td>dueDate</td>
+            <td>project</td>
+            <td>priority</td>
+            <td><button class="delete-row-btn" data-id="${data.id}">Delete</button></td>
+            <td><button class="edit-row-btn" data-id="${data.id}">Edit</button></td>
         `;
+
     tableHtml += "</tr>";
 
     if (isTableData) {
@@ -61,12 +63,15 @@ function loadHTMLTable(data) {
 
     let tableHtml = "";
 
-    data.forEach(function ({ id, name, dateAdded }) {
+    data.forEach(function ({ id, name }) {
         tableHtml += `
             <tr>
                 <td>${id}</td>
                 <td>${name}</td>
-                <td>${dateAdded}</td>
+                <td>description</td>
+                <td>dueDate</td>
+                <td>project</td>
+                <td>priority</td>
                 <td><button class="delete-row-btn" data-id="${id}">Delete</button></td>
                 <td><button class="edit-row-btn" data-id="${id}">Edit</button></td>
             </tr>

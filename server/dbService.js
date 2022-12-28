@@ -46,12 +46,11 @@ class DbService {
             const insertId = await new Promise((resolve, reject) => {
                 // const query =
                 //     "INSERT INTO tasks (name, description, dueDate, project, priority) VALUES (?,?,?,?,?);";
-                const query =
-                    "INSERT INTO tasks (name, dateAdded) VALUES (?,?);";
+                const query = "INSERT INTO tasks (name) VALUES (?);";
                 connection.query(
                     query,
                     // [name, description, dueDate, project, priority],
-                    [name, dateAdded],
+                    [name],
                     (err, result) => {
                         if (err) reject(new Error(err.message));
                         resolve(result.insertId);
@@ -62,7 +61,6 @@ class DbService {
             return {
                 id: insertId,
                 name: name,
-                dateAdded: dateAdded,
             };
         } catch (error) {
             console.log(error);
