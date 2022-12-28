@@ -35,8 +35,28 @@ app.get("/getAll", (req, res) => {
 });
 
 // update
+app.patch("/update", (req, res) => {
+    const { id, name } = req.body;
+    const db = dbService.getDbServiceInstance();
+
+    const result = db.updateNameById(id, name);
+
+    result
+        .then((data) => res.json({ success: data }))
+        .catch((err) => console.log(err));
+});
 
 // delete
+app.delete("/delete/:id", (req, res) => {
+    const { id } = req.params;
+    const db = dbService.getDbServiceInstance();
+
+    const result = db.deleteRowById(id);
+
+    result
+        .then((data) => res.json({ success: data }))
+        .catch((err) => console.log(err));
+});
 
 app.listen(process.env.PORT, () => {
     console.log("Server is running");

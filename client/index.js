@@ -6,6 +6,50 @@ document.addEventListener("DOMContentLoaded", function () {
 
 const addBtn = document.querySelector("#add-name-btn");
 
+document
+    .querySelector("table tbody")
+    .addEventListener("click", function (event) {
+        if (event.target.className === "delete-row-btn") {
+            deleteRowById(event.target.dataset.id);
+        }
+        if (event.target.className === "edit-row-btn") {
+            handleEditRow(event.target.dataset.id);
+        }
+    });
+
+const updateBtn = document.querySelector("#update-row-btn");
+
+updateBtn.onclick = function () {
+    const updateNameInput = document.querySelector("#update-name-input");
+
+    fetch("http://localhost:5000/update", {
+        method: "PATCH",
+        headers: {
+            "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+            id: updateNameInput.dataset.id,
+            name: updateNameInput.value,
+        }),
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.success) {
+                location.reload();
+            }
+        });
+};
+
+function deleteRowById(id) {
+    fetch("http://localhost:5000/delete/" + id, { method: "DELETE" })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.success) {
+                location.reload();
+            }
+        });
+}
+
 addBtn.onclick = function () {
     const nameInput = document.querySelector("#name-input");
     const name = nameInput.value;
@@ -79,4 +123,10 @@ function loadHTMLTable(data) {
     });
 
     table.innerHTML = tableHtml;
+}
+
+function handleEditRow(id) {
+    const updateSection = document.querySelector("#update-row");
+    updateSection.hidden = false;
+    document.querySelector("#update-name-input").dataset.id = id;
 }
