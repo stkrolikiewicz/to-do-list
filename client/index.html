@@ -5,15 +5,23 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>to-do-list express app</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;700&display=swap"
+            rel="stylesheet"
+        />
         <link rel="stylesheet" href="styles.css" />
     </head>
     <body>
         <main>
-            <label>Name:</label>
-            <input type="text" id="name-input" />
-            <button id="add-name-btn">Add Name</button>
+            <div class="add-task">
+                <label>Name:</label>
+                <input type="text" id="name-input" />
+                <button id="add-name-btn">Add Name</button>
+            </div>
             <br /><br /><br />
-            <div>
+            <div class="search">
                 <input
                     placeholder="Search by name"
                     type="text"
@@ -21,32 +29,36 @@
                 />
                 <button id="search-btn">Search</button>
             </div>
-            <table id="table">
-                <thead>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Due Date</th>
-                    <th>Project</th>
-                    <th>priority</th>
-                    <th>Delete</th>
-                    <th>Edit</th>
-                </thead>
-                <tbody id="table-body"></tbody>
-            </table>
-            <section hidden id="update-row">
-                <label>Name:</label>
-                <input type="text" id="update-name-input" />
-                <!-- <label>Description:</label>
-                <input type="text" id="update-description-input" />
-                <label>Due Date:</label>
-                <input type="text" id="update-due-date-input" />
-                <label>Project:</label>
-                <input type="text" id="update-project-input" />
-                <label>Priority:</label>
-                <input type="text" id="update-priority-input" /> -->
-                <button id="update-row-btn">Update</button>
-            </section>
+            <div class="table">
+                <table id="table">
+                    <thead>
+                        <tr>
+                            <!-- <th>ID</th> -->
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Due Date</th>
+                            <th>Project</th>
+                            <th>priority</th>
+                            <th>Delete</th>
+                            <th>Edit</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body"></tbody>
+                </table>
+                <section hidden id="update-row">
+                    <label>Name:</label>
+                    <input type="text" id="update-name-input" />
+                    <!-- <label>Description:</label>
+                    <input type="text" id="update-description-input" />
+                    <label>Due Date:</label>
+                    <input type="text" id="update-due-date-input" />
+                    <label>Project:</label>
+                    <input type="text" id="update-project-input" />
+                    <label>Priority:</label>
+                    <input type="text" id="update-priority-input" /> -->
+                    <button id="update-row-btn">Update</button>
+                </section>
+            </div>
         </main>
         <script src="index.js"></script>
     </body>
