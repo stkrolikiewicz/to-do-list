@@ -40,17 +40,17 @@ class DbService {
         }
     }
 
-    async insertNewName(name) {
+    async insertNewTask(name, description, dueDate, project, priority) {
         try {
-            const dateAdded = new Date();
+            // const dateAdded = new Date();
             const insertId = await new Promise((resolve, reject) => {
-                // const query =
-                //     "INSERT INTO tasks (name, description, dueDate, project, priority) VALUES (?,?,?,?,?);";
-                const query = "INSERT INTO tasks (name) VALUES (?);";
+                const query =
+                    "INSERT INTO tasks (name, description, dueDate, project, priority) VALUES (?,?,?,?,?);";
+                // const query = "INSERT INTO tasks (name) VALUES (?);";
                 connection.query(
                     query,
-                    // [name, description, dueDate, project, priority],
-                    [name],
+                    [name, description, dueDate, project, priority],
+                    // [name],
                     (err, result) => {
                         if (err) reject(new Error(err.message));
                         resolve(result.insertId);
@@ -61,6 +61,10 @@ class DbService {
             return {
                 id: insertId,
                 name: name,
+                description: description,
+                dueDate: dueDate,
+                project: project,
+                priority: priority,
             };
         } catch (error) {
             console.log(error);

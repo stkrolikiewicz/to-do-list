@@ -18,9 +18,28 @@
             <div class="add-task">
                 <label>Name:</label>
                 <input type="text" id="name-input" />
-                <button id="add-name-btn">Add Name</button>
+                <label>Description:</label>
+                <input type="text" id="description-input" />
+                <label>Due Date:</label>
+                <input type="date" id="due-date-input" />
+                <label>Project:</label>
+                <select id="project-input">
+                    <option value=""></option>
+                    <option value="Personal">Personal</option>
+                    <option value="Work">Work</option>
+                    <option value="School">School</option>
+                </select>
+                <label>Priority:</label>
+                <select id="priority-input">
+                    <option value=""></option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <button id="add-name-btn">Add Task</button>
             </div>
-            <br /><br /><br />
             <div class="search">
                 <input
                     placeholder="Search by name"

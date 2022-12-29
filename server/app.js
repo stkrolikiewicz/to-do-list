@@ -13,10 +13,16 @@ app.use(express.urlencoded({ extended: false }));
 
 // create
 app.post("/insert", (req, res) => {
-    const { name } = req.body;
+    const { name, description, dueDate, project, priority } = req.body;
     const db = dbService.getDbServiceInstance();
 
-    const result = db.insertNewName(name);
+    const result = db.insertNewTask(
+        name,
+        description,
+        dueDate,
+        project,
+        priority
+    );
 
     result
         .then((data) => res.json({ data: data }))

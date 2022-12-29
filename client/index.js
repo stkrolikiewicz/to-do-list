@@ -62,13 +62,31 @@ function deleteRowById(id) {
 addBtn.onclick = function () {
     const nameInput = document.querySelector("#name-input");
     const name = nameInput.value;
+    const descriptionInput = document.querySelector("#description-input");
+    const description = descriptionInput.value;
+    const dueDateInput = document.querySelector("#due-date-input");
+    const dueDate = dueDateInput.value;
+    const projectSelect = document.querySelector("#project-input");
+    const project = projectSelect.value;
+    const prioritySelect = document.querySelector("#priority-input");
+    const priority = prioritySelect.value;
     nameInput.value = "";
-
+    descriptionInput.value = "";
+    dueDateInput.value = "";
+    projectSelect.value = "";
+    prioritySelect.value = "";
+    console.log(name, description, dueDate, project, priority);
     fetch("http://localhost:5000/insert", {
         headers: {
             "Content-type": "application/json",
         },
-        body: JSON.stringify({ name: name }),
+        body: JSON.stringify({
+            name: name,
+            description: description,
+            dueDate: dueDate,
+            project: project,
+            priority: priority,
+        }),
         method: "POST",
     })
         .then((response) => response.json())
@@ -89,10 +107,10 @@ function insertRowIntoTable(data) {
 
     tableHtml += `
             <td>${data.name}</td>
-            <td>description</td>
-            <td>dueDate</td>
-            <td>project</td>
-            <td>priority</td>
+            <td>${data.description}</td>
+            <td>${data.dueDate}</td>
+            <td>${data.project}</td>
+            <td>${data.priority}</td>
             <td><button class="delete-row-btn" data-id="${data.id}">Delete</button></td>
             <td><button class="edit-row-btn" data-id="${data.id}">Edit</button></td>
         `;
@@ -120,10 +138,10 @@ function loadHTMLTable(data) {
             tableHtml += `
             <tr>
                 <td>${name}</td>
-                <td>description</td>
-                <td>dueDate</td>
-                <td>project</td>
-                <td>priority</td>
+                <td>${data.description}</td>
+                <td>${data.dueDate}</td>
+                <td>${data.project}</td>
+                <td>${data.priority}</td>
                 <td><button class="delete-row-btn" data-id="${id}">Delete</button></td>
                 <td><button class="edit-row-btn" data-id="${id}">Edit</button></td>
             </tr>
