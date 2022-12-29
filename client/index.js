@@ -117,7 +117,7 @@ addBtn.onclick = function () {
 function insertRowIntoTable(data) {
     const table = document.querySelector("table tbody");
     const isTableData = table.querySelector(".no-data");
-
+    dueDateConverted = data.dueDate.split("T")[0];
     let tableHtml = "<tr>";
 
     // for (const key in data) {
@@ -129,7 +129,7 @@ function insertRowIntoTable(data) {
     tableHtml += `
             <td>${data.name}</td>
             <td>${data.description}</td>
-            <td>${data.dueDate}</td>
+            <td>${dueDateConverted}</td>
             <td>${data.project}</td>
             <td>${data.priority}</td>
             <td><button class="delete-row-btn" data-id="${data.id}">Delete</button></td>
@@ -163,11 +163,12 @@ function loadHTMLTable(data) {
             project,
             priority,
         }) {
+            dueDateConverted = dueDate.split("T")[0];
             tableHtml += `
             <tr>
                 <td>${name}</td>
                 <td>${description}</td>
-                <td>${dueDate}</td>
+                <td>${dueDateConverted}</td>
                 <td>${project}</td>
                 <td>${priority}</td>
                 <td><button class="delete-row-btn" data-id="${id}">Delete</button></td>
@@ -184,6 +185,7 @@ function handleEditRow(id, name, description, dueDate, project, priority) {
     const updateSection = document.querySelector("#update-row");
     updateSection.hidden = false;
     dueDateConverted = dueDate.split("T")[0];
+    document.querySelector("#update-name-input").dataset.id = id;
     document.querySelector("#update-name-input").value = name;
     document.querySelector("#update-description-input").value = description;
     document.querySelector("#update-due-date-input").value = dueDateConverted;
