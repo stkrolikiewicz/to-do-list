@@ -40,17 +40,17 @@ class DbService {
         }
     }
 
-    async insertNewName(name) {
+    async insertNewTask(name, description, dueDate, project, priority) {
         try {
-            const dateAdded = new Date();
+            // const dateAdded = new Date();
             const insertId = await new Promise((resolve, reject) => {
-                // const query =
-                //     "INSERT INTO tasks (name, description, dueDate, project, priority) VALUES (?,?,?,?,?);";
-                const query = "INSERT INTO tasks (name) VALUES (?);";
+                const query =
+                    "INSERT INTO tasks (name, description, dueDate, project, priority) VALUES (?,?,?,?,?);";
+                // const query = "INSERT INTO tasks (name) VALUES (?);";
                 connection.query(
                     query,
-                    // [name, description, dueDate, project, priority],
-                    [name],
+                    [name, description, dueDate, project, priority],
+                    // [name],
                     (err, result) => {
                         if (err) reject(new Error(err.message));
                         resolve(result.insertId);
@@ -61,6 +61,10 @@ class DbService {
             return {
                 id: insertId,
                 name: name,
+                description: description,
+                dueDate: dueDate,
+                project: project,
+                priority: priority,
             };
         } catch (error) {
             console.log(error);
@@ -84,15 +88,20 @@ class DbService {
         }
     }
 
-    async updateNameById(id, name) {
+    async updateTaskById(id, name, description, dueDate, project, priority) {
         try {
             id = parseInt(id, 10);
             const response = await new Promise((resolve, reject) => {
-                const query = "UPDATE tasks SET name = ? WHERE id = ?;";
-                connection.query(query, [name, id], (err, result) => {
-                    if (err) reject(new Error(err.message));
-                    resolve(result.affectedRows);
-                });
+                const query =
+                    "UPDATE tasks SET name = ?, description = ?, dueDate = ?, project = ?, priority = ? WHERE id = ?;";
+                connection.query(
+                    query,
+                    [name, description, dueDate, project, priority, id],
+                    (err, result) => {
+                        if (err) reject(new Error(err.message));
+                        resolve(result.affectedRows);
+                    }
+                );
             });
             return response === 1 ? true : false;
             // console.log(response);
