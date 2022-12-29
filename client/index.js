@@ -81,13 +81,14 @@ function insertRowIntoTable(data) {
 
     let tableHtml = "<tr>";
 
-    for (const key in data) {
-        if (data.hasOwnProperty(key)) {
-            tableHtml += `<td>${data[key]}</td>`;
-        }
-    }
+    // for (const key in data) {
+    //     if (data.hasOwnProperty(key)) {
+    //         tableHtml += `<td>${data[key]}</td>`;
+    //     }
+    // }
 
     tableHtml += `
+            <td>${data.name}</td>
             <td>description</td>
             <td>dueDate</td>
             <td>project</td>
@@ -111,14 +112,13 @@ function loadHTMLTable(data) {
 
     if (data.length === 0) {
         table.innerHTML =
-            "<tr><td class='no-data' colspan='8'>No Data</td></tr>";
+            "<tr><td class='no-data' colspan='7'>No Data</td></tr>";
     } else {
         let tableHtml = "";
 
         data.forEach(function ({ id, name }) {
             tableHtml += `
             <tr>
-                <td>${id}</td>
                 <td>${name}</td>
                 <td>description</td>
                 <td>dueDate</td>
@@ -129,7 +129,7 @@ function loadHTMLTable(data) {
             </tr>
         `;
         });
-
+        // <td>${id}</td>
         table.innerHTML = tableHtml;
     }
 }
