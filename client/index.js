@@ -13,7 +13,16 @@ document
             deleteRowById(event.target.dataset.id);
         }
         if (event.target.className === "edit-row-btn") {
-            handleEditRow(event.target.dataset.id);
+            console.log(event.target.dataset);
+            console.log(event.target.dataset.dueDate);
+            handleEditRow(
+                event.target.dataset.id,
+                event.target.dataset.name,
+                event.target.dataset.description,
+                event.target.dataset.dueDate,
+                event.target.dataset.project,
+                event.target.dataset.priority
+            );
         }
     });
 
@@ -30,6 +39,14 @@ searchBtn.onclick = function () {
 
 updateBtn.onclick = function () {
     const updateNameInput = document.querySelector("#update-name-input");
+    const updateDescriptionInput = document.querySelector(
+        "#update-description-input"
+    );
+    const updateDueDateInput = document.querySelector("#update-due-date-input");
+    const updateProjectSelect = document.querySelector("#update-project-input");
+    const updatePrioritySelect = document.querySelector(
+        "#update-priority-input"
+    );
 
     fetch("http://localhost:5000/update", {
         method: "PATCH",
@@ -39,6 +56,10 @@ updateBtn.onclick = function () {
         body: JSON.stringify({
             id: updateNameInput.dataset.id,
             name: updateNameInput.value,
+            description: updateDescriptionInput.value,
+            dueDate: updateDueDateInput.value,
+            project: updateProjectSelect.value,
+            priority: updatePrioritySelect.value,
         }),
     })
         .then((response) => response.json())
@@ -112,7 +133,7 @@ function insertRowIntoTable(data) {
             <td>${data.project}</td>
             <td>${data.priority}</td>
             <td><button class="delete-row-btn" data-id="${data.id}">Delete</button></td>
-            <td><button class="edit-row-btn" data-id="${data.id}">Edit</button></td>
+            <td><button class="edit-row-btn" data-id="${data.id} data-name="${data.name}" data-description="${data.description}" data-due-date="${data.dueDate}" data-project="${data.project}" data-priority="${data.priority}">Edit</button></td>
         `;
 
     tableHtml += "</tr>";
@@ -134,16 +155,23 @@ function loadHTMLTable(data) {
     } else {
         let tableHtml = "";
 
-        data.forEach(function ({ id, name }) {
+        data.forEach(function ({
+            id,
+            name,
+            description,
+            dueDate,
+            project,
+            priority,
+        }) {
             tableHtml += `
             <tr>
                 <td>${name}</td>
-                <td>${data.description}</td>
-                <td>${data.dueDate}</td>
-                <td>${data.project}</td>
-                <td>${data.priority}</td>
+                <td>${description}</td>
+                <td>${dueDate}</td>
+                <td>${project}</td>
+                <td>${priority}</td>
                 <td><button class="delete-row-btn" data-id="${id}">Delete</button></td>
-                <td><button class="edit-row-btn" data-id="${id}">Edit</button></td>
+                <td><button class="edit-row-btn" data-id="${id}" data-name="${name}" data-description="${description}" data-due-date="${dueDate}" data-project="${project}" data-priority="${priority}">Edit</button></td>
             </tr>
         `;
         });
@@ -152,8 +180,13 @@ function loadHTMLTable(data) {
     }
 }
 
-function handleEditRow(id) {
+function handleEditRow(id, name, description, dueDate, project, priority) {
     const updateSection = document.querySelector("#update-row");
     updateSection.hidden = false;
-    document.querySelector("#update-name-input").dataset.id = id;
+    dueDateConverted = dueDate.split("T")[0];
+    document.querySelector("#update-name-input").value = name;
+    document.querySelector("#update-description-input").value = description;
+    document.querySelector("#update-due-date-input").value = dueDateConverted;
+    document.querySelector("#update-project-input").value = project;
+    document.querySelector("#update-priority-input").value = priority;
 }
