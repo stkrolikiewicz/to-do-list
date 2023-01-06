@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const dotenv = require("dotenv");
-dotenv.config();
+// dotenv.config();
 
 const dbService = require("./dbService");
 const { response } = require("express");
@@ -72,7 +72,6 @@ app.delete("/delete/:id", (req, res) => {
 });
 
 // search
-
 app.get("/search/:name", (req, res) => {
     const { name } = req.params;
     const db = dbService.getDbServiceInstance();
