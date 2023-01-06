@@ -127,6 +127,23 @@ class DbService {
             console.log(error);
         }
     }
+    async getTaskById(id) {
+        try {
+            id = parseInt(id, 10);
+            const response = await new Promise((resolve, reject) => {
+                const query = "SELECT * FROM tasks WHERE id = ?;";
+
+                connection.query(query, [id], (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(results);
+                });
+            });
+
+            return response;
+        } catch (error) {
+            console.log(error);
+        }
+    }
 }
 
 module.exports = DbService;
